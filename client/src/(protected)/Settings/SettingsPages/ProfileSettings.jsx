@@ -12,6 +12,7 @@ import { AuthContext } from '@/contexts/AuthContext';
 import CustomLink from '@/hooks/CustomLink';
 import toast from 'react-hot-toast';
 import { uploadImageToFirebase } from '@/lib/firebaseUtils';
+import PhonePicker from '@/functions/PhonePicker';
 const containerVariants = {
   hidden: { opacity: 0, y: 20 },
   visible: {

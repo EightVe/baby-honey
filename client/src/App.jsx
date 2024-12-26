@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext , useState,useEffect} from 'react';
 import { Route, Routes, useLocation, matchPath } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider, AuthContext } from '@/contexts/AuthContext';
@@ -18,10 +18,13 @@ import Profile from './(protected)/Profile/Profile';
 import EmailVerify from '@/functions/EmailVerify';
 import { LoadingSpinner } from './lib/LoadingSpinner';
 import NewPassword from './(public)/ForgotPassword/NewPassword';
+import BabyShooting from './(public)/PagesCatalog/BabyShooting';
+import PregnantShooing from './(public)/PagesCatalog/PregnantShooing';
+import SmashCake from './(public)/PagesCatalog/SmashCake';
 
 const AppContent = () => {
   const location = useLocation();
-  const hideNavigationBarPaths = ['/login', '/signup', '/forgot-password', '/verify-email'];
+  const hideNavigationBarPaths = ['/login', '/signup', '/forgot-password', '/verify-email','/dashboard','/'];
 
   const hideNavigationBar = hideNavigationBarPaths.includes(location.pathname) || 
     matchPath('/reset-password/:token', location.pathname);
@@ -35,13 +38,12 @@ const AppContent = () => {
     );
   }
 
-  if (user && !user.verifiedEmail) {
-    return <EmailVerify />;
-  }
-
+  // if (user && !user.verifiedEmail) {
+  //   return <EmailVerify />;
+  // }
   return (
     <>
-      {!hideNavigationBar && <NavigationBar />}
+      {!hideNavigationBar && <NavigationBar/>}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/profile" element={
@@ -51,6 +53,21 @@ const AppContent = () => {
         } />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Register />} />
+        <Route path="/catalogue/baby-shooting" element={
+          <ProtectedRoute>
+            <BabyShooting />
+          </ProtectedRoute>
+        } />
+                <Route path="/catalogue/pregnant-shooting" element={
+          <ProtectedRoute>
+            <PregnantShooing />
+          </ProtectedRoute>
+        } />
+                <Route path="/catalogue/smash-cake" element={
+          <ProtectedRoute>
+            <SmashCake />
+          </ProtectedRoute>
+        } />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password/:token" element={<NewPassword />} />
         <Route path="/settings" element={

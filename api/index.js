@@ -9,6 +9,7 @@ import sessionRouter from './routes/session.route.js'
 import protectedRoutes from './routes/protected.route.js'
 import userRouter from './routes/user.route.js'
 import verificationsRouter from './routes/verifications.route.js'
+import productsRouter from './routes/product.route.js'
 import cors from 'cors';
 dotenv.config();
 
@@ -35,6 +36,7 @@ app.use('/api/guest', guestRouter);
 app.use('/api/user', userRouter);
 app.use('/api/sessions', sessionRouter);
 app.use('/api/verifications', verificationsRouter);
+app.use('/api/products', productsRouter);
 app.listen(3000,()=>{
     console.log("Server Started Succesfully")
 })

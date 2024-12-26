@@ -7,7 +7,16 @@ import { LoadingSpinner } from '@/lib/LoadingSpinner';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import WebLogo from '@/imgs/jsx/WebLogo';
-
+import {
+    Sheet,
+    SheetContent,
+    SheetDescription,
+    SheetHeader,
+    SheetTitle,
+    SheetTrigger,
+  } from "@/components/ui/sheet"
+import { IconShoppingCart } from '@tabler/icons-react';
+import ShoppingCart from '@/functions/ShoppingCart';
 const NavigationBar = () => {
     const { user, loading } = useContext(AuthContext);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -53,7 +62,9 @@ const NavigationBar = () => {
                         {loading ? (
                             <LoadingSpinner className="h-3 w-3 animate-spin" />
                         ) : user ? (
+                            <>
                             <UserAvatar />
+                            </>
                         ) : (
                             <>
                                 <Link to="/login">
