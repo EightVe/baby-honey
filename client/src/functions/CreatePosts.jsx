@@ -25,6 +25,16 @@ const CreatePosts = () => {
   const [uploading, setUploading] = useState(false);
   const [imgup, setImgUp] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
+  
+  // Data types for selection
+  const dataTypes = [
+    { value: 'bb-s', label: 'Baby Shooting' },
+    { value: 'pg-s', label: 'Pregnant Shooting' },
+    { value: 'sc-s', label: 'Smash Cake' },
+  ];
+
+  // State for selected dataType
+  const [selectedDataType, setSelectedDataType] = useState(dataTypes[0].value);
 
   const handleImageUpload = async (e, callback) => {
     const file = e.target.files[0];
@@ -63,7 +73,7 @@ const CreatePosts = () => {
       price,
       image,
       relatedImages: relatedImages.filter((img) => img), // Remove empty entries
-      dataType: 'bb-s',
+      dataType: selectedDataType, // Use the selected data type
     };
 
     try {
@@ -142,6 +152,24 @@ const CreatePosts = () => {
             <Button size="sm" variant="outline" onClick={handleAddRelatedImage} disabled={imgup}>
               <PlusCircle className="h-5 w-5" />
             </Button>
+          </div>
+
+          {/* Data Type Select Dropdown */}
+          <div className="flex items-center gap-4">
+            <Label htmlFor="dataType">Data Type</Label>
+            <select
+              id="dataType"
+              value={selectedDataType}
+              onChange={(e) => setSelectedDataType(e.target.value)}
+              disabled={imgup}
+              className="p-2 border rounded"
+            >
+              {dataTypes.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
         <DialogFooter>

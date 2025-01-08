@@ -1,10 +1,4 @@
-//dear reviewer : this website is hosted & maintained by Eightve-Labs LTD registered in Dublin Co-N:97418410, this project api's are hosted on Eightve-Labs API nameservers
-//if somehow the api is not connected u may switch it to local-host by going to front-end/libs/axiosInstance.js and change baseURL to '/api'.
-//if the local-host is still not connecting to the api switch the baseURL to 'https://bbh-api.eightve.com/api' to use Eightve-Labs nameservers api.
-//you may want to check the eightve-labs api health by going to https://bbh-api.eightve.com/api/health if response is 200 OK then everything should be connected.
-//This project source code is provided only to Nisantasi Universitesi reviewer(s). if somehow this source code got into the wrong hands please contact us at ceo@eightve.com
-//This project is being developed for future production. In the case of any source code leak by nisantasi Universitesi reviewer(s), "Us" "We" Eightve-Labs will take the legal actions against the university reviewer(s).
-//FINAL NOTICE : this project has been fully developed by Nizzar Mohamed Hemmach, a Full-Stack (MERN) Intern, at eightve-labs ltd.
+
 
 import Product from "../models/products.model.js";
 
@@ -30,17 +24,51 @@ export const createProduct = async (req, res) => {
 };
 
 export const fetchProduct = async (req, res) => {
-    try {
-        const products = await Product.find().sort({ createdAt: -1 }); // Sort by creation date (most recent first)
-        res.status(200).json({ 
-          message: 'Products fetched successfully', 
-          products 
-        });
-      } catch (error) {
-        console.error('Error fetching products:', error);
-        res.status(500).json({ 
-          message: 'Failed to fetch products', 
-          error 
-        });
-      }
-  };
+  const { dataType } = req.query; // Get the dataType from query parameter
+
+  try {
+    const filter = dataType ? { dataType } : {}; // If dataType is provided, filter by it
+
+    // Find products with the filter (if provided) and sort them by createdAt
+    const products = await Product.find(filter).sort({ createdAt: -1 });
+
+    res.status(200).json({ 
+      message: 'Products fetched successfully', 
+      products 
+    });
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    res.status(500).json({ 
+      message: 'Failed to fetch products', 
+      error 
+    });
+  }
+};
+
+
+export const fetchAllProducts = async (req, res) => {
+  try {
+    // Fetch all products from the database
+    const products = await Product.find().sort({ createdAt: -1 }); // Sort by most recent
+    res.status(200).json({ message: 'Products fetched successfully', products });
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    res.status(500).json({ message: 'Failed to fetch products', error });
+  }
+};
+
+// Controller for deleting a product
+export const deleteProduct = async (req, res) => {
+  const { productId } = req.params; // Get productId from URL params
+  try {
+    // Delete the product by its ID
+    const deletedProduct = await Product.findByIdAndDelete(productId);
+    if (!deletedProduct) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+    res.status(200).json({ message: 'Product deleted successfully', product: deletedProduct });
+  } catch (error) {
+    console.error('Error deleting product:', error);
+    res.status(500).json({ message: 'Failed to delete product', error });
+  }
+};

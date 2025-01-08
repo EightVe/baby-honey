@@ -1,18 +1,23 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { motion } from "framer-motion";
-import { ArrowUpRight } from 'lucide-react'
+import { ArrowUpRight, TriangleAlert } from 'lucide-react'
 import { Card, CardContent } from "@/components/ui/card"
 import { ProductsImages } from './components/ProductsImages';
 import { ProductsDetails } from './components/ProductsDetails';
 import axiosInstance from '@/lib/axiosInstance';
+import { AuthContext } from '@/contexts/AuthContext';
+import toast from 'react-hot-toast';
 const BabyShooting = () => {
   const [products, setProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
-
+  const [isLoading, setIsLoading] = useState(false);
+  const [selectedDataType, setSelectedDataType] = useState('bb-s'); // Default value
+  const {user}=useContext(AuthContext);
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axiosInstance.get('/products/fetch');
+        // Append the selected dataType to the API request URL as a query parameter
+        const response = await axiosInstance.get(`/products/fetch?dataType=${selectedDataType}`);
         setProducts(response.data.products);
       } catch (error) {
         console.error('Failed to fetch products:', error);
@@ -20,7 +25,7 @@ const BabyShooting = () => {
     };
 
     fetchProducts();
-  }, []);
+  }, [selectedDataType]);
 
   const handleSelectProduct = (product) => {
     setSelectedProduct(product);
@@ -29,6 +34,30 @@ const BabyShooting = () => {
   const handleCloseDetails = () => {
     setSelectedProduct(null);
   };
+
+  const handleAddToCart = async (product) => {
+    setIsLoading(true); // Start loading
+
+    try {
+      const userId = user?._id; // Replace this with the actual user ID
+      const data = {
+        userId,
+        productId: product._id,
+        category: product.category,
+      };
+
+      const response = await axiosInstance.post('/cart/add-item', data); // Call backend API to add the item to the cart
+      console.log(response.data);
+      toast.success("Added to cart!") // Handle success response
+      window.location.reload();
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+      toast.error("Item is already on cart. or an error accured!")
+    } finally {
+      setIsLoading(false); // Stop loading after API call
+    }
+  };
+  
   return (
     <>
     <div className="grid place-content-center px-4 py-24 text-black">
@@ -58,6 +87,14 @@ const BabyShooting = () => {
       </h1>
     </div>
     <div className="container mx-auto p-4">
+    {products.length === 0 ? (<div className='w-full flex items-center justify-center flex-col'>
+
+      <TriangleAlert className='h-10 w-10 text-gray-400 stroke-1'/>
+      <p className='text-gray-400'>No products available at the moment for the selected category.</p>
+    </div>) :
+    
+    
+    
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       {products.map((product) => (
             <Card
@@ -84,7 +121,7 @@ const BabyShooting = () => {
               </CardContent>
             </Card>
           ))}
-      </div>
+      </div>}
     </div>
     {selectedProduct && (
         <div className="bg-fuchsia-100/50 backdrop-blur-xl min-h-screen w-full fixed top-0">
@@ -94,10 +131,13 @@ const BabyShooting = () => {
               title={selectedProduct.title}
               price={selectedProduct.price}
               onClose={handleCloseDetails}
+              isLoading={isLoading}
+              onAddToCart={() => handleAddToCart(selectedProduct)}
             />
           </main>
         </div>
-      )}
+      )} 
+    
     </>
   )
 }

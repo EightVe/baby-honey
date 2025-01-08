@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip"
 import { Link } from 'react-router-dom'
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet"
@@ -11,7 +11,33 @@ import { Progress } from "@/components/ui/progress"
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
 import CreatePosts from '@/functions/CreatePosts'
+import axiosInstance from '@/lib/axiosInstance'
 const Dashboard = () => {
+    const [products, setProducts] = useState([]);
+    const [error, setError] = useState(null);
+  useEffect(() => {
+    // Fetch all products on mount
+    const fetchProducts = async () => {
+      try {
+        const response = await axiosInstance.get('/products/fetch-all');
+        setProducts(response.data.products);
+      } catch (err) {
+        setError('Failed to load products');
+        console.error(err);
+      }
+    };
+    fetchProducts();
+  }, []);
+
+  const deleteProduct = async (productId) => {
+    try {
+      await axiosInstance.delete(`/products/delete-single/${productId}`);
+      setProducts((prevProducts) => prevProducts.filter((product) => product._id !== productId));
+    } catch (err) {
+      setError('Failed to delete product');
+      console.error(err);
+    }
+  };
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
     <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
@@ -227,83 +253,43 @@ const Dashboard = () => {
             </CardFooter>
           </Card>
         </div>
-          <Card x-chunk="dashboard-01-chunk-3">
-            <CardHeader className="px-7">
-              <CardTitle>Appointments</CardTitle>
-              <CardDescription>Recent appointments from your store.</CardDescription>
-            </CardHeader>
-            <CardContent className="w-full">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Customer</TableHead>
-                    <TableHead className="hidden sm:table-cell">Type</TableHead>
-                    <TableHead className="hidden sm:table-cell">Status</TableHead>
-                    <TableHead className="hidden md:table-cell">Date</TableHead>
-                    <TableHead className="text-right">Amount</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  <TableRow className="bg-accent">
-                    <TableCell>
-                      <div className="font-medium">Liam Johnson</div>
-                      <div className="hidden text-sm text-muted-foreground md:inline">liam@example.com</div>
-                    </TableCell>
-                    <TableCell className="hidden sm:table-cell">Sale</TableCell>
-                    <TableCell className="hidden sm:table-cell">
-                      <Badge className="text-xs" variant="secondary">
-                        Fulfilled
-                      </Badge>
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell">2023-06-23</TableCell>
-                    <TableCell className="text-right">$250.00</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>
-                      <div className="font-medium">Olivia Smith</div>
-                      <div className="hidden text-sm text-muted-foreground md:inline">olivia@example.com</div>
-                    </TableCell>
-                    <TableCell className="hidden sm:table-cell">Refund</TableCell>
-                    <TableCell className="hidden sm:table-cell">
-                      <Badge className="text-xs" variant="outline">
-                        Declined
-                      </Badge>
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell">2023-06-24</TableCell>
-                    <TableCell className="text-right">$150.00</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>
-                      <div className="font-medium">Noah Williams</div>
-                      <div className="hidden text-sm text-muted-foreground md:inline">noah@example.com</div>
-                    </TableCell>
-                    <TableCell className="hidden sm:table-cell">Subscription</TableCell>
-                    <TableCell className="hidden sm:table-cell">
-                      <Badge className="text-xs" variant="secondary">
-                        Fulfilled
-                      </Badge>
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell">2023-06-25</TableCell>
-                    <TableCell className="text-right">$350.00</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>
-                      <div className="font-medium">Emma Brown</div>
-                      <div className="hidden text-sm text-muted-foreground md:inline">emma@example.com</div>
-                    </TableCell>
-                    <TableCell className="hidden sm:table-cell">Sale</TableCell>
-                    <TableCell className="hidden sm:table-cell">
-                      <Badge className="text-xs" variant="secondary">
-                        Fulfilled
-                      </Badge>
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell">2023-06-26</TableCell>
-                    <TableCell className="text-right">$450.00</TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            </CardContent>
-          </Card>
+    <Card x-chunk="dashboard-01-chunk-3">
+      <CardHeader className="px-7">
+        <CardTitle>Products</CardTitle>
+        <CardDescription>Manage your store's products</CardDescription>
+      </CardHeader>
+      <CardContent className="w-full">
+        {error && <div className="text-red-500 text-center">{error}</div>}
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Title</TableHead>
+              <TableHead className="hidden sm:table-cell">Price</TableHead>
+              <TableHead className="hidden sm:table-cell">Type</TableHead>
+              <TableHead className="hidden md:table-cell">Date Created</TableHead>
+              <TableHead className="text-right">Actions</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {products.map((product) => (
+              <TableRow key={product._id}>
+                <TableCell>
+                  <div className="font-medium">{product.title}</div>
+                </TableCell>
+                <TableCell className="hidden sm:table-cell">${product.price}</TableCell>
+                <TableCell className="hidden sm:table-cell">{product.dataType}</TableCell>
+                <TableCell className="hidden md:table-cell">{new Date(product.createdAt).toLocaleDateString()}</TableCell>
+                <TableCell className="text-right">
+                  <Button variant="ghost" color="red" onClick={() => deleteProduct(product._id)}>
+                    Delete
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </CardContent>
+    </Card>
       </main>
     </div>
   </div>

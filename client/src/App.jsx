@@ -21,6 +21,7 @@ import NewPassword from './(public)/ForgotPassword/NewPassword';
 import BabyShooting from './(public)/PagesCatalog/BabyShooting';
 import PregnantShooing from './(public)/PagesCatalog/PregnantShooing';
 import SmashCake from './(public)/PagesCatalog/SmashCake';
+import CheckoutPage from './functions/CheckoutPage';
 
 const AppContent = () => {
   const location = useLocation();
@@ -53,6 +54,11 @@ const AppContent = () => {
         } />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Register />} />
+        <Route path="/checkout" element={
+          <ProtectedRoute>
+            <CheckoutPage />
+          </ProtectedRoute>
+        } />
         <Route path="/catalogue/baby-shooting" element={
           <ProtectedRoute>
             <BabyShooting />

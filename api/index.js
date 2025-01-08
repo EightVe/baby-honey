@@ -10,6 +10,7 @@ import protectedRoutes from './routes/protected.route.js'
 import userRouter from './routes/user.route.js'
 import verificationsRouter from './routes/verifications.route.js'
 import productsRouter from './routes/product.route.js'
+import cartRouter from './routes/cart.route.js'
 import cors from 'cors';
 dotenv.config();
 
@@ -37,6 +38,7 @@ app.use('/api/user', userRouter);
 app.use('/api/sessions', sessionRouter);
 app.use('/api/verifications', verificationsRouter);
 app.use('/api/products', productsRouter);
+app.use('/api/cart', cartRouter);
 app.listen(3000,()=>{
     console.log("Server Started Succesfully")
 })

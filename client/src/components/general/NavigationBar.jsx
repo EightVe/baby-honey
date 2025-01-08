@@ -17,6 +17,7 @@ import {
   } from "@/components/ui/sheet"
 import { IconShoppingCart } from '@tabler/icons-react';
 import ShoppingCart from '@/functions/ShoppingCart';
+import UserCart from '@/functions/UserCart';
 const NavigationBar = () => {
     const { user, loading } = useContext(AuthContext);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -63,6 +64,7 @@ const NavigationBar = () => {
                             <LoadingSpinner className="h-3 w-3 animate-spin" />
                         ) : user ? (
                             <>
+                            <UserCart />
                             <UserAvatar />
                             </>
                         ) : (
