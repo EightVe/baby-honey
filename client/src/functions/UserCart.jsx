@@ -6,6 +6,7 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
 import axiosInstance from '@/lib/axiosInstance'
 import { AuthContext } from '@/contexts/AuthContext'
+import { Calendar } from "@/components/ui/calendar"
 import toast from 'react-hot-toast' // Import react-hot-toast
 
 const UserCart = () => {
@@ -13,8 +14,9 @@ const UserCart = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [cartItems, setCartItems] = useState([])
   const [isLoading, setIsLoading] = useState(false)
+  const [checkout, setCheckout] = useState(false)
   const [error, setError] = useState(null)
-
+  const [date, setDate] = useState("")
   // Data type descriptions
   const dataTypeDescriptions = {
     'bb-s': 'Baby Shooting',
@@ -86,6 +88,37 @@ const UserCart = () => {
 
   const itemCount = cartItems.reduce((total, item) => total + item.quantity, 0)
 
+  const bookAppointment = async () => {
+    if (!date) {
+      toast.error('Please select a booking date.');
+      return;
+    }
+  
+    const payload = {
+      userId: user._id,
+      cartItems: cartItems.map((item) => ({
+        productName: item.productId?.title,
+        price: item.productId?.price,
+        img: item.productId.image,
+      })),
+      booking_date: date,
+      emailAddress: user?.emailAddress,
+    };
+  
+    console.log('Payload:', payload); // Debugging
+    try {
+      await axiosInstance.post('/booking/send-appointment', payload);
+      toast.success('Appointment booked successfully!');
+      window.location.reload();
+    } catch (err) {
+      console.error('Error booking appointment:', err);
+      toast.error('Failed to book the appointment. Please try again.');
+    }
+  };
+  
+  
+  
+  
   return (
     <Drawer open={isOpen} onOpenChange={setIsOpen}>
       <DrawerTrigger asChild>
@@ -98,7 +131,30 @@ const UserCart = () => {
           )}
         </Button>
       </DrawerTrigger>
+          {checkout ?       <DrawerContent className="h-[80vh]">
+        <DrawerHeader>
+          <DrawerTitle>Checkout</DrawerTitle>
+          <DrawerDescription>Select a date to checkout.</DrawerDescription>
+        </DrawerHeader>
+        <div className="space-y-4 px-4">
+        <Calendar
+    mode="single"
+    selected={date}
+    onSelect={setDate}
+    className=""
+  />
+        </div>
 
+        <DrawerFooter>
+          <DrawerClose asChild>
+            <div className='w-full flex items-center justify-center gap-4'>
+            <Button variant="outline" onClick={()=>setCheckout(false)} type="button">Back</Button>
+            <Button variant="" onClick={bookAppointment}>Book</Button>
+
+            </div>
+          </DrawerClose>
+        </DrawerFooter>
+      </DrawerContent> : 
       <DrawerContent className="h-[80vh]">
         <DrawerHeader>
           <DrawerTitle>Shopping Cart</DrawerTitle>
@@ -127,7 +183,7 @@ const UserCart = () => {
                       <div className="flex-1 space-y-1">
                         <h4 className="font-semibold">{item.productId.title}</h4>
                         <p className="text-sm text-muted-foreground">{item.productId.category}</p>
-                        <p className="font-medium">${item.productId.price.toFixed(2)}</p>
+                        <p className="font-medium">{item.productId.price.toFixed(2)}DA</p>
                       </div>
                       <div className="flex items-center space-x-2">
                         <Button
@@ -148,10 +204,6 @@ const UserCart = () => {
 
         <Separator className="my-4" />
         <div className="space-y-4 px-4">
-          <div className="flex items-center justify-between text-lg font-semibold">
-            <span>Total</span>
-            <span>${totalPrice.toFixed(2)}</span>
-          </div>
           <div className="flex space-x-2">
             <Button
               variant="outline"
@@ -160,7 +212,7 @@ const UserCart = () => {
             >
               Clear Cart
             </Button>
-            <Button className="w-full">Checkout</Button>
+            <Button className="w-full" onClick={()=>setCheckout(true)}>Checkout</Button>
           </div>
         </div>
 
@@ -170,6 +222,7 @@ const UserCart = () => {
           </DrawerClose>
         </DrawerFooter>
       </DrawerContent>
+      }
     </Drawer>
   )
 }

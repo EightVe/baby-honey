@@ -95,11 +95,11 @@ const CreatePosts = () => {
   };
 
   return (
-    <Dialog>
+    <Dialog >
       <DialogTrigger asChild>
         <Button size="sm">Create Model</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] max-h-[600px] overflow-auto">
+      <DialogContent className="sm:max-w-[425px] max-h-[400px] overflow-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <PlusIcon className="h-4 w-4" /> Create New Model

@@ -49,16 +49,16 @@ export default function Index() {
                     <img
                         src={projects[selectedProject].src}
                         alt="project image"
+                  
                     />
                 </div>
                 <div className="h-[100%] w-[50%] flex text-xl md:text-2xl lg:text-3xl">
                     <p>
-                      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ad laudantium necessitatibus omnis, numquam quam dolor nihil debitis cum quae exercitationem pariatur dolorem maxime repellat, unde officia! Voluptatem voluptates vel repudiandae.  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sapiente nihil ipsam quisquam vero fugit dolore animi aut fugiat nam cumque? Libero rerum aliquam odit culpa aperiam unde quis, quaerat corrupti?
-                    </p>
+                    Celebrate the beauty of your baby’s journey with stunning, timeless photos. From adorable smash cake sessions for their first birthday to glowing maternity shoots, we create memories you’ll treasure forever. Explore our gallery and book your session today to capture the moments that matter most                    </p>
                 </div>
             </div>
 
-            <div ref={projectList} className={styles.projectList}>
+            <div ref={projectList} className={styles.projectList} id='categories'>
                 {projects.map((project, index) => (
                     <div
                         key={index}

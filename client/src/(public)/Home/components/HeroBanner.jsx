@@ -13,6 +13,7 @@ import DotPattern from "./DotPattern";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { NeonGradientCard } from "./ui/NeonEffect";
+import HomeBanner from '../../../imgs/IMG_6869.mp4'
 export const SmoothScrollHero = () => {
   return (
 
@@ -46,7 +47,7 @@ export const SmoothScrollHero = () => {
 const Nav = () => {
   return (
     <nav className="fixed left-0 right-0 top-0 z-50 flex items-center justify-between px-6 py-3 text-white">
-     imported new nav
+     
     </nav>
   );
 };
@@ -124,7 +125,7 @@ whileInView={{ y: 0, opacity: 1 }}
 transition={{ ease: "easeInOut", duration: 1.25 }}
 className=" flex z-10 items-center whitespace-pre-wrap justify-center gap-2 text-xl capitalize text-white tracking-tight pt-4 text-center"
 >
-<ArrowDown className="h-5 w-5"/>  Scroll Down <ArrowDown className="h-5 w-5"/>
+<a href="/#categories" className="flex items-center"><ArrowDown className="h-5 w-5"/>  Scroll Down <ArrowDown className="h-5 w-5"/></a>
 </motion.h1>
 
 
@@ -136,7 +137,7 @@ className=" flex z-10 items-center whitespace-pre-wrap justify-center gap-2 text
     playsInline
   >
     <source
-      src="https://firebasestorage.googleapis.com/v0/b/sevenplay-c1faa.appspot.com/o/WhatsApp%20Video%202024-11-12%20at%2000.51.49.mp4?alt=media&token=229c830b-f2fb-41e7-a17e-13e7541ad913"
+      src={HomeBanner}
       type="video/mp4"
     />
     Your browser does not support the video tag.

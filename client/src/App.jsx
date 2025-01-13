@@ -47,18 +47,8 @@ const AppContent = () => {
       {!hideNavigationBar && <NavigationBar/>}
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/profile" element={
-          <ProtectedRoute>
-            <Profile />
-          </ProtectedRoute>
-        } />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Register />} />
-        <Route path="/checkout" element={
-          <ProtectedRoute>
-            <CheckoutPage />
-          </ProtectedRoute>
-        } />
         <Route path="/catalogue/baby-shooting" element={
           <ProtectedRoute>
             <BabyShooting />

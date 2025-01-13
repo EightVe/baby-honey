@@ -5,6 +5,7 @@ import PlayReel from './components/PlayReel'
 import Categories from './components/Categories'
 import LampEffect from './components/ui/Lamp/LampEffect'
 import ReCategiriesPlusAbt from './components/ReCategiriesPlusAbt/ReCategiriesPlusAbt'
+import ContactArea from './components/ContactArea'
 
 
 const Home = () => {
@@ -16,6 +17,7 @@ const Home = () => {
    {/* <LampEffect />
     <Categories/> */}
     <ReCategiriesPlusAbt />
+    <ContactArea />
     </>
   )
 }

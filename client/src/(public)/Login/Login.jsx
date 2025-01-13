@@ -16,24 +16,23 @@ const Login = () => {
         name=" name."
         type="article"
       />
-      <div className='h-screen w-full flex'>
-        <div className='w-full flex flex-col justify-between'>
+      <div className='h-screen w-full flex absolute z-30 justify-center'>
+        <div className='w-full flex flex-col justify-between items-center'>
           <motion.div 
             className='flex justify-center items-center p-6'
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <WebLogo />
           </motion.div>
           <motion.div 
-            className=''
+            className='bg-fuchsia-50/50 p-2 rounded-xl py-6'
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            <div className='text-center pb-4'>
-              <h1 className='text-3xl font-medium text-center'>Welcome Back</h1>
+            <div className='text-center pb-4 flex items-center flex-col'>
+              <h1 className='text-3xl font-medium text-center flex gap-1'>            <WebLogo />Welcome Back</h1>
               <p className='text-sm text-gray-500'>Sign in to your account</p>
             </div>
             <div className='lg:px-32 px-14'>
@@ -59,15 +58,15 @@ const Login = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.6 }}
           >
-            <p className='text-gray-600 text-sm'>©2024 Eightve LTD. All Rights Reserved.</p>
+            <p className='text-gray-600 text-sm'>©2025 Baby Honey. All Rights Reserved.</p>
           </motion.div>
         </div>
+      </div>
         <div 
-          className='h-screen w-full rounded-tl-3xl rounded-bl-3xl hidden lg:block'
+          className='h-screen w-full absolute z-10'
         >
           <WebBanner />
         </div>
-      </div>
     </>
   )
 }

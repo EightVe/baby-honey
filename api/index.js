@@ -11,6 +11,7 @@ import userRouter from './routes/user.route.js'
 import verificationsRouter from './routes/verifications.route.js'
 import productsRouter from './routes/product.route.js'
 import cartRouter from './routes/cart.route.js'
+import bookRouter from './routes/book.route.js'
 import cors from 'cors';
 dotenv.config();
 
@@ -22,7 +23,7 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
-  const __dirname = path.resolve();
+const __dirname = path.resolve();
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
@@ -39,6 +40,7 @@ app.use('/api/sessions', sessionRouter);
 app.use('/api/verifications', verificationsRouter);
 app.use('/api/products', productsRouter);
 app.use('/api/cart', cartRouter);
+app.use('/api/booking', bookRouter);
 app.listen(3000,()=>{
     console.log("Server Started Succesfully")
 })

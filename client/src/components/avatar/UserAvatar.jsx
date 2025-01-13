@@ -33,7 +33,6 @@ const UserAvatar = () => {
   <Label>{user?.lastName}</Label>
   </DropdownMenuLabel>
     <DropdownMenuSeparator />
-    <a href="/profile">    <DropdownMenuItem className="flex items-center gap-1.5 text-sm mb-1"><User className='text-gray-500 h-4 w-4'/>Profile</DropdownMenuItem></a>
     <a href="/settings">    <DropdownMenuItem className="flex items-center gap-1.5 text-sm mb-1"><SettingsIcon className='text-gray-500 h-4 w-4'/>Settings</DropdownMenuItem></a>
     {user.isAdmin && (
        <a href="/dashboard">    <DropdownMenuItem className="flex items-center gap-1.5 text-sm mb-1"><LayoutDashboard className='text-gray-500 h-4 w-4'/>Dashboard</DropdownMenuItem></a>
