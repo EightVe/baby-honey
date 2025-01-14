@@ -178,7 +178,7 @@ const ParallaxImages = () => {
         className="ml-auto ml-46 w-1/3 object-cover h-auto"
       />
       <ParallaxImg
-        src="https://firebasestorage.googleapis.com/v0/b/sevenplay-c1faa.appspot.com/o/40542e2f-b65c-4397-bdb6-381f6448ea95.jpg?alt=media&token=a3f05829-1740-4245-b05f-5dc839794fb9"
+        src="https://firebasestorage.googleapis.com/v0/b/sevenplay-c1faa.appspot.com/o/photo_2025-01-14_00-53-47.jpg?alt=media&token=de6ca459-2ce6-4cd5-a1ec-711f0a247d68"
         alt="Orbiting satellite"
         start={-200}
         end={-800}

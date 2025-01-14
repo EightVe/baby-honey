@@ -95,23 +95,23 @@ const BabyShooting = () => {
     
     
     
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-transparent">
       {products.map((product) => (
             <Card
               key={product._id}
-              className="group overflow-hidden rounded-xl cursor-pointer"
+              className="group overflow-hidden rounded-xl cursor-pointer  bg-transparent"
               onClick={() => handleSelectProduct(product)}
             >
               <CardContent className="p-0 relative aspect-[4/3]">
                 <img
                   src={product.image}
                   alt={product.title}
-                  className="object-cover transition-transform duration-300 group-hover:scale-105 w-full h-full"
+                  className="object-contain transition-transform duration-300 group-hover:scale-105 w-full h-full"
                   loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50" />
-                <div className="absolute bottom-0 left-0 right-0 p-4 flex justify-between items-center">
-                  <h3 className="text-white font-semibold text-lg">{product.title}</h3>
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-4 flex justify-center items-center">
+                  <h3 className="text-white bg-black/50 px-2 rounded-full font-semibold text-lg">{product.title}</h3>
                 </div>
                 <div className="absolute top-4 right-4">
                   <div className="bg-white/10 backdrop-blur-md rounded-full p-2 group-hover:bg-white/50 duration-300">

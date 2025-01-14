@@ -99,7 +99,7 @@ const UserCart = () => {
       cartItems: cartItems.map((item) => ({
         productName: item.productId?.title,
         price: item.productId?.price,
-        img: item.productId.image,
+        img: item.productId?.image,
       })),
       booking_date: date,
       emailAddress: user?.emailAddress,
@@ -176,8 +176,8 @@ const UserCart = () => {
                   {groupedItems[dataType].map((item) => (
                     <div key={item.productId._id} className="flex items-center space-x-4 py-2">
                       <img
-                        src={item.productId.image}
-                        alt={item.productId.title}
+                        src={item.productId?.image}
+                        alt={item.productId?.title}
                         className="h-16 w-16 rounded-md object-cover"
                       />
                       <div className="flex-1 space-y-1">

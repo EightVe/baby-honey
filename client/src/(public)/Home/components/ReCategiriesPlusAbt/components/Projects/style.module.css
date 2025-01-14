@@ -43,9 +43,11 @@
 
 .projectEl {
     width: 100%;
-    color: black;
+    background: rgb(155,235,251);
+background: linear-gradient(165deg, rgba(155,235,251,1) 10%, rgba(247,155,199,1) 90%);
     text-transform: uppercase;
-
+color: transparent;
+background-clip: text;
     display: flex;
     justify-content: flex-end;
     padding: 10px 0;

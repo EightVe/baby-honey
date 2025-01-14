@@ -27,7 +27,7 @@ const NavigationBar = () => {
     };
 
     return (
-        <nav className="inset-x-0 top-0 z-50 bg-white shadow-sm dark:bg-gray-950/90">
+        <nav className="inset-x-0 top-0 z-50 bg-fuchsia-100">
             <div className="w-full max-w-7xl mx-auto px-4">
                 <div className="flex justify-between h-14 items-center">
                     <Link to="/" className="flex items-center">
@@ -41,19 +41,19 @@ const NavigationBar = () => {
                             Home
                         </Link>
                         <Link
-                            to="#"
+                            to="/#about"
                             className="font-medium flex items-center text-sm transition-colors hover:underline"
                         >
                             About
                         </Link>
                         <Link
-                            to="#"
+                            to="/#categories"
                             className="font-medium flex items-center text-sm transition-colors hover:underline"
                         >
                             Services
                         </Link>
                         <Link
-                            to="#"
+                            to="/#contact"
                             className="font-medium flex items-center text-sm transition-colors hover:underline"
                         >
                             Contact

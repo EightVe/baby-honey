@@ -85,6 +85,7 @@ const CreatePosts = () => {
         setPrice('');
         setImage('');
         setRelatedImages([]);
+        window.location.reload();
       } else {
         toast.error('Failed to create product');
       }

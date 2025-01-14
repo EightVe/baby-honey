@@ -6,7 +6,7 @@ export function ProductsImages({ relatedImages }) {
           <img
             src={image}
             alt={`Related image ${index + 1}`}
-            className="h-[500px] w-full object-cover rounded-3xl"
+            className="h-[500px] w-full object-contain rounded-3xl"
             loading="lazy"
           />
         </div>

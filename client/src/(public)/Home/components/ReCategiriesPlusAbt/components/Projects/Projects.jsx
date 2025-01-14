@@ -9,17 +9,17 @@ const projects = [
     {
         title: "Baby Shooting",
         href: "/catalogue/baby-shooting",
-        src: "https://firebasestorage.googleapis.com/v0/b/sevenplay-c1faa.appspot.com/o/1a9f3833-b763-4d93-b029-4c273c1fdb07.jpg?alt=media&token=1ce69bb1-486a-48a5-adb8-4364c4fcfa91",
+        src: "https://firebasestorage.googleapis.com/v0/b/sevenplay-c1faa.appspot.com/o/photo_2025-01-04_03-05-33.jpg?alt=media&token=b9024bfc-26ce-4bcf-a1f4-cb25fb2b6483",
     },
     {
         title: "Pregnant Shooting",
         href: "/catalogue/pregnant-shooting",
-        src: "https://firebasestorage.googleapis.com/v0/b/sevenplay-c1faa.appspot.com/o/1a9f3833-b763-4d93-b029-4c273c1fdb07.jpg?alt=media&token=1ce69bb1-486a-48a5-adb8-4364c4fcfa91",
+        src: "https://firebasestorage.googleapis.com/v0/b/sevenplay-c1faa.appspot.com/o/photo_2025-01-14_00-48-27.jpg?alt=media&token=731654de-370b-4b00-8843-46a9b35de0c5",
     },
     {
         title: "Smash Cake",
         href: "/catalogue/smash-cake",
-        src: "https://firebasestorage.googleapis.com/v0/b/sevenplay-c1faa.appspot.com/o/40542e2f-b65c-4397-bdb6-381f6448ea95.jpg?alt=media&token=a3f05829-1740-4245-b05f-5dc839794fb9",
+        src: "https://firebasestorage.googleapis.com/v0/b/sevenplay-c1faa.appspot.com/o/photo_2025-01-14_00-47-20.jpg?alt=media&token=a5b43ca4-f818-4c13-aa13-a0feb452a53b",
     },
 ];
 
@@ -65,7 +65,7 @@ export default function Index() {
                         onMouseOver={() => setSelectedProject(index)}
                         className={styles.projectEl}
                     >
-                        <CustomLink to={project.href}><h2 className='flex gap-1 text-xl md:text-2xl lg:text-5xl '>{project.title} <IconExternalLink /></h2></CustomLink>
+                        <CustomLink to={project.href}><h2 className='flex gap-1 text-xl md:text-2xl lg:text-5xl '>{project.title}</h2></CustomLink>
                     </div>
                 ))}
             </div>

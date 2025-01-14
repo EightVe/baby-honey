@@ -77,7 +77,7 @@ const PlayReel = () => {
   return (
 <>
 
-<div className="bg-fuchsia-100">
+<div className="bg-fuchsia-100" id="about">
       <section ref={targetRef} className="relative h-[300vh]">
         <div
         className="sticky top-0 flex h-screen items-center justify-center overflow-hidden gap-5 flex-col paragfont">
@@ -93,7 +93,7 @@ const PlayReel = () => {
           >
             <video
               ref={videoRef}
-              src="https://firebasestorage.googleapis.com/v0/b/sevenplay-c1faa.appspot.com/o/Download.mp4?alt=media&token=c1ebfa84-59c3-4d78-8415-cf4eac9b4b95"
+              src="https://firebasestorage.googleapis.com/v0/b/sevenplay-c1faa.appspot.com/o/%D8%B4%D8%BA%D9%88%D9%81%D8%A9%20%D8%A8%D8%A7%D9%84%D8%AA%D8%B5%D9%88%D9%8A%D8%B1%20%D8%AC%D8%AF%D8%AB%20(1).mp4?alt=media&token=9678debf-4e30-4898-95c8-d8dbf15f23ea"
               className="w-full h-full object-cover rounded-lg"
               muted
               playsInline
@@ -136,7 +136,7 @@ const PlayReel = () => {
             >
               <video
                 ref={videoRef}
-                src="https://firebasestorage.googleapis.com/v0/b/sevenplay-c1faa.appspot.com/o/Download.mp4?alt=media&token=c1ebfa84-59c3-4d78-8415-cf4eac9b4b95"
+                src="https://firebasestorage.googleapis.com/v0/b/sevenplay-c1faa.appspot.com/o/%D8%B4%D8%BA%D9%88%D9%81%D8%A9%20%D8%A8%D8%A7%D9%84%D8%AA%D8%B5%D9%88%D9%8A%D8%B1%20%D8%AC%D8%AF%D8%AB%20(1).mp4?alt=media&token=9678debf-4e30-4898-95c8-d8dbf15f23ea"
                 className="max-h-full max-w-full"
                 style={{ objectFit: 'contain' }}
                 autoPlay

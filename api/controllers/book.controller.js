@@ -1,13 +1,15 @@
 import Book from '../models/book.model.js'
 import nodemailer from 'nodemailer';
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  host: 'eightve.com', // Outgoing server
+  port: 465, // SMTP Port for secure connections
+  secure: true, // Use SSL/TLS
   auth: {
-    user: 'vexobyte8@gmail.com',
-    pass: 'sqzfncwlgczighgv',
+    user: 'babyhoney@eightve.com', // Replace with your email
+    pass: 'hfkjashfkjsa123123ada', // Replace with the email account's password
   },
   tls: {
-    rejectUnauthorized: false, // Add this line
+    rejectUnauthorized: false, // Allows self-signed certificates
   },
 });
 export const sendApp = async (req, res) => {
@@ -147,7 +149,7 @@ export const sendApp = async (req, res) => {
 
     // Send the email
     const mailOptions = {
-      from: "vexobyte8@gmail.com",
+      from: "babyhoney@eightve.com",
       to: emailAddress,
       subject: 'Your Appointment Confirmation',
       html: emailHTML, // Include the HTML template
